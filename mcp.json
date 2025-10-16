@@ -1,0 +1,13 @@
+ {
+     "name": "agentsyun-coupon-mcp-server",
+     "version": "0.0.15",
+     "description": "Agentsyun优惠券MCP服务，提供多品类优惠券查询、筛选和推广链接生成功能，支持外卖、美食、休闲娱乐、酒店民宿、门票度假、医药等多个类目",
+     "license": "MIT",
+     "repository": "https://github.com/lengyue1084/agentsyun-coupon-mcp-server",
+     "homepage": "https://github.com/lengyue1084/agentsyun-coupon-mcp-server#readme",
+     "mcp": {
+       "transport": "stdio",
+       "command": "uv",
+       "args": ["agentsyun-coupon-mcp-server"]
+     }
+   }
