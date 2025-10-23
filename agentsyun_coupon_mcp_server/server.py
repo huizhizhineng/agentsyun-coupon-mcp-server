@@ -33,24 +33,7 @@ class ConfigKeys(Enum):
     """环境变量配制键"""
     APP_KEY = "APP_KEY"
     APP_SECRET = "APP_SECRET"
-
-class ApiEndpoints(Enum):
-    """请求地址"""
-    BASEURL = "https://api.huizhihuyuai.cn/api/func"
-    # 查询指定类目的优惠券列表
-    COUPON_LIST_CATEGORY = "/mcp/recommend/coupon/list/category"
-    # 查询指定类目的优惠券列表
-    GET_SHORT_LINK = "/mcp/recommend/coupon/referral/link"
-
-    @staticmethod
-    def build_url(path: Enum, params: Dict[str, Any] = None) -> str:
-        """构建完整URL"""
-        url = f"{ApiEndpoints.BASEURL.value}{path.value}"
-        if params:
-            param_str = "&".join([f"{key}={value}" for key, value in params.items()])
-            url = f"{url}?{param_str}"
-        return url
-
+    APP_ENV = "APP_ENV"  # 添加环境配置项
 
 def get_env_variable(env_key: str) -> str:
     """从环境变量获取指定值"""
@@ -59,9 +42,30 @@ def get_env_variable(env_key: str) -> str:
         raise ValueError(f"{env_key} environment variable is required")
     return env_key
 
-
 APP_KEY = get_env_variable(ConfigKeys.APP_KEY.value)
 APP_SECRET = get_env_variable(ConfigKeys.APP_SECRET.value)
+APP_ENV = os.getenv(ConfigKeys.APP_ENV.value, "prod")
+
+
+class ApiEndpoints(Enum):
+    """请求地址"""
+    BASEURL = "https://api.huizhihuyuai.cn/api/func"
+    BASEURL_SIT = "https://api.sit.huizhihuyuai.cn/api/func"
+    # 查询指定类目的优惠券列表
+    COUPON_LIST_CATEGORY = "/mcp/recommend/coupon/list/category"
+    # 查询指定类目的优惠券列表
+    GET_SHORT_LINK = "/mcp/recommend/coupon/referral/link"
+
+    @staticmethod
+    def build_url(path: Enum, params: Dict[str, Any] = None) -> str:
+        """构建完整URL"""
+        base_url = ApiEndpoints.BASEURL_SIT.value if APP_ENV == "dev" else ApiEndpoints.BASEURL.value
+        url = f"{base_url}{path.value}"
+        if params:
+            param_str = "&".join([f"{key}={value}" for key, value in params.items()])
+            url = f"{url}?{param_str}"
+        return url
+
 
 mcp = FastMCP("agentsyun-coupon-mcp-server")
 
