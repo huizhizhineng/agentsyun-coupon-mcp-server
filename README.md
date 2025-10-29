@@ -196,7 +196,7 @@
   }
 }
 ```
-- 火山引擎的remote方式，
+- 火山引擎的remote方式
   如下json文件从火山引擎mcp介绍页获取
   token生成规则：base64(APP_KEY-APP_SECRET)
   例如：APP_KEY为123456，APP_SECRET为abcdef，实际生产和的token为123456-abcdef的base64编码（MTIzNDU2LWFiY2RlZg==）
