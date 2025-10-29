@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "agentsyun-coupon-mcp-server"
 version = "0.0.18"
-description = "Agentsyun优惠券MCP服务，提供多品类优惠券查询、筛选和推广链接生成功能，支持外卖、美食、休闲娱乐、酒店民宿、门票度假、医药等多个类目"
+description = "Agentsyun优惠券MCP服务，提供多品类优惠券查询、筛选和推广链接生成功能，支持外卖、美食、休闲娱乐、酒店民宿、门票度假、医药等多个类目。"
 authors = [
   { name = "lengyue1084", email = "95695864@qq.com" },
 ]
@@ -14,6 +14,7 @@ license = { file = "LICENSE" }
 requires-python = ">=3.12"
 dependencies = [
     "annotated>=0.0.2",
+    "fastmcp>=2.13.0.2",
     "mcp", # 基础包
     "requests>=2.32.5",
 ]
