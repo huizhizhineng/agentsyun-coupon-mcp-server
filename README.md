@@ -170,15 +170,49 @@
 
 - Python >= 3.12
 - 环境变量配置：
-  - [APP_KEY](file://D:\pyProject\huizhi_coupon_mcp_server\agentsyun_coupon_mcp_server\server.py#L33-L33): 应用Key
-  - [APP_SECRET](file://D:\pyProject\huizhi_coupon_mcp_server\agentsyun_coupon_mcp_server\server.py#L34-L34): 应用密钥
+  - [APP_KEY](file://D:\pyProject\huizhi_coupon_mcp_server\agentsyun_coupon_mcp_server\server.py#L33-L33): 应用Key(对应APP ID)
+  - [APP_SECRET](file://D:\pyProject\huizhi_coupon_mcp_server\agentsyun_coupon_mcp_server\server.py#L34-L34): 应用密钥(对应APP SECRET)
 
 
 ## 快速开始
 
 ### 1. 获取认证信息
-前往 [Agentsyun开放平台](https://mcp.agentsyun.com/) 获取您的 APP_KEY 与 APP_SECRET
-
+前往 [Agentsyun开放平台](https://mcp.agentsyun.com/) 获取您的 APP_KEY(APP ID) 与 APP_SECRET(APP SECRET)
+- stdio 部署方式
+  直接通过环境变量注入即可
+```json
+{
+  "mcpServers": {
+    "agentsyun-coupon": {
+      "command": "uvx",
+      "args": [
+        "agentsyun-coupon-mcp-server"
+      ],
+      "env": {
+        "APP_KEY": "开放平台申请的APP_KEY",
+        "APP_SECRET": "开放平台申请的APP_SECRET"
+      }
+    }
+  }
+}
+```
+- 火山引擎的remote方式，
+  如下json文件从火山引擎mcp介绍页获取
+  token生成规则：base64(APP_KEY-APP_SECRET)
+  例如：APP_KEY为123456，APP_SECRET为abcdef，实际生产和的token为123456-abcdef的base64编码（MTIzNDU2LWFiY2RlZg==）
+```json
+{
+  "mcpServers": {
+    "agentsyun_mcp": {
+      "url": "https://sd40suov6n5j6uua1fiig.apigateway-cn-beijing.volceapi.com/mcp",
+      "headers": {
+        "Authorization": "bearer your_token"
+      }
+    }
+  }
+}
+```
+注意：token中的APP_KEY、APP_SECRET会覆盖本地的APP_KEY、APP_SECRET
 开放平台地址：https://mcp.agentsyun.com
 
 更为详细的开发文档：https://agentsyun.feishu.cn/wiki/ZDlfwN37PiRqgbknMwYc3kO6nqd
